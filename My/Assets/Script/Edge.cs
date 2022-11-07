@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 [System.Serializable]
-public class Edge
+public class Edge : IComparable<Edge>
 {
     public float cost;
     public Vertex vertex;
