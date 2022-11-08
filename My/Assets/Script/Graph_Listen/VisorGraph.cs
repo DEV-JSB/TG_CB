@@ -1,3 +1,4 @@
+using JSB;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -43,13 +44,13 @@ public class VisorGraph : MonoBehaviour
             {
                 foreach(Vector3 otherVec in correctionVertexes2)
                 {
-                    Physics.Raycast(vec,otherVec,out hitInfo);
+                    /*Physics.Raycast(vec,otherVec,out hitInfo);
                     if (hitInfo.collider.tag == "obstacle")
                     {
                         Gizmos.color = Color.red;
                     }
                     else
-                        Gizmos.color = Color.white;
+                        Gizmos.color = Color.white;*/
                     Gizmos.DrawRay(otherVec, vec);
                 }
             }
