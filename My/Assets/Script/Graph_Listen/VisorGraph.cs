@@ -13,6 +13,9 @@ public class VisorGraph : MonoBehaviour
     private List<GameObject> objList = new List<GameObject>();
 
 
+    List<Vector3> correctionVertexes = new List<Vector3>();
+    List<Vector3> correctionVertexes2 = new List<Vector3>();
+
     private void Start()
     {
         if (visionGraph == null)
@@ -27,11 +30,7 @@ public class VisorGraph : MonoBehaviour
                 continue;
             List<Vector3> otherVertexes = obj.GetComponent<VisorGraph>().visionGraph.Vectors;
             List<Vector3> myVertexes = visionGraph.Vectors;
-            List<Vector3> correctionVertexes = new List<Vector3>();
-            List<Vector3> correctionVertexes2 = new List<Vector3>();
-
-            RaycastHit hitInfo;
-
+            
             foreach (Vector3 vec in myVertexes)
             {
                 correctionVertexes.Add(vec + this.transform.position);
@@ -51,7 +50,9 @@ public class VisorGraph : MonoBehaviour
                     }
                     else
                         Gizmos.color = Color.white;*/
-                    Gizmos.DrawRay(otherVec, vec);
+                    Vector3 dir = (otherVec - vec).normalized;
+                    float distance = Vector3.Distance(vec, otherVec);
+                    Gizmos.DrawRay(vec, dir* distance);
                 }
             }
             correctionVertexes.Clear();
@@ -69,6 +70,9 @@ public class VisorGraph : MonoBehaviour
     }
 
 
-
+    private void Update()
+    {
+        
+    }
 
 }
