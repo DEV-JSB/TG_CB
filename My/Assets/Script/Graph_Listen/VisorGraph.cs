@@ -24,6 +24,8 @@ public class VisorGraph : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        if (objList.Count == 0)
+            return;
         foreach(GameObject obj in objList)
         {
             if (null == obj.GetComponent<VisorGraph>())
@@ -43,20 +45,20 @@ public class VisorGraph : MonoBehaviour
             {
                 foreach(Vector3 otherVec in correctionVertexes2)
                 {
-                    /*Physics.Raycast(vec,otherVec,out hitInfo);
-                    if (hitInfo.collider.tag == "obstacle")
+                    Vector3 dir = (otherVec - vec).normalized;
+                    float distance = Vector3.Distance(vec, otherVec);
+                    if (RayCast(vec,dir,distance))
                     {
                         Gizmos.color = Color.red;
                     }
                     else
-                        Gizmos.color = Color.white;*/
-                    Vector3 dir = (otherVec - vec).normalized;
-                    float distance = Vector3.Distance(vec, otherVec);
+                        Gizmos.color = Color.white;
                     Gizmos.DrawRay(vec, dir* distance);
                 }
             }
             correctionVertexes.Clear();
             correctionVertexes2.Clear();
+            Gizmos.color = Color.white;
         }
     }
     public bool IsVisible(int[] visibiltiyNodes)
@@ -69,10 +71,9 @@ public class VisorGraph : MonoBehaviour
         return false;
     }
 
-
-    private void Update()
+    private bool RayCast(Vector3 pos,Vector3 dir, float distance)
     {
-        
+        return !Physics.Raycast(pos, dir,distance,LayerMask.NameToLayer("obstacle"));
     }
 
 }
